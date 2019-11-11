@@ -4,7 +4,7 @@ import util.PropertyRead;
 
 
 public class UserDaoFactory {
-    public UserDAO getUserDao() {
+    public static UserDAO getUserDao() {
         String daoType = PropertyRead.readProperty("dao");
         switch (daoType) {
             case "hibernate":

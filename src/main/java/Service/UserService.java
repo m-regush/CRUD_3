@@ -26,8 +26,7 @@ public class UserService {
         return userService;
     }
 
-    private UserDaoFactory userDaoFactory = new UserDaoFactory();
-    private UserDAO userDAO = userDaoFactory.getUserDao();
+    private UserDAO userDAO = UserDaoFactory.getUserDao();
 
     public List<User> getAllUser() {
         try {

@@ -1,27 +1,28 @@
 package Servlets;
 
 
-import Model.User;
+
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.io.PrintWriter;
 
-@WebFilter("/admin/*")
-public class FilterServlet implements Filter {
+@WebFilter("/user")
+public class LoginFilter implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
+        HttpServletResponse response = (HttpServletResponse) servletResponse;
         HttpSession session = request.getSession();
-        User user = (User) session.getAttribute("user");
-        PrintWriter writer = servletResponse.getWriter();
+        Boolean userIsLogged = (Boolean) session.getAttribute("userIsLogged");
 
-        if (user == null || !user.getRole().equals("admin")) {
-            writer.println("User can't see admin page");
-        } else {
+        if (userIsLogged != null && userIsLogged) {
             filterChain.doFilter(servletRequest, servletResponse);
+        } else {
+            response.sendRedirect("homepage");
         }
+
     }
 }

@@ -22,4 +22,5 @@ public class HomeServlet extends HttpServlet {
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/View/user.jsp");
         requestDispatcher.forward(request, response);
     }
+
 }

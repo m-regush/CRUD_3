@@ -27,16 +27,18 @@ public class LoginServlet extends HttpServlet {
         String login = request.getParameter("name");
         String password = request.getParameter("password");
         User user = UserService.getUserService().getClientByName(login);
-
+        Boolean userIsLogged = false;
         if (user != null && user.getPassword().equals(password) && user.getRole().equals("admin")) {
+            userIsLogged = true;
             request.getSession().setAttribute("user", user);
             response.sendRedirect("admin/users");
-        } else if (user != null && user.getPassword().equals(password) && user.getRole().equals("user")) {
+        } else if (user != null && user.getPassword().equals(password) && !user.getRole().equals("admin")) {
+            userIsLogged = true;
             request.getSession().setAttribute("user", user);
             response.sendRedirect("user");
         } else {
             request.getRequestDispatcher("index.jsp").forward(request, response);
         }
-
+        request.getSession().setAttribute("userIsLogged", userIsLogged);
     }
 }

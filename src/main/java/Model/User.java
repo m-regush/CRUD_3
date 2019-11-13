@@ -15,11 +15,19 @@ public class User {
     @Column(name = "name")
     private String name;
 
+    @Column(name = "password")
+    private String password;
+
+    @Column(name = "role")
+    private String role;
+
     @Column(name = "job")
     private String job;
 
     @Column(name = "salary")
     private Long salary;
+
+
 
 
     public User() {
@@ -31,15 +39,19 @@ public class User {
         this.salary = salary;
     }
 
-    public User(String name, String job, long salary) {
+    public User(String name, String password, String role, String job, long salary) {
         this.name = name;
+        this.password = password;
+        this.role = role;
         this.job = job;
         this.salary = salary;
     }
 
-    public User(long id, String name, String job, long salary) {
+    public User(long id, String name, String password, String role, String job, long salary) {
         this.id = id;
         this.name = name;
+        this.password = password;
+        this.role = role;
         this.job = job;
         this.salary = salary;
     }
@@ -76,6 +88,22 @@ public class User {
         this.salary = salary;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -95,6 +123,8 @@ public class User {
         return "User{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", password='" + password + '\'' +
+                ", role='" + role + '\'' +
                 ", job='" + job + '\'' +
                 ", salary=" + salary +
                 '}';

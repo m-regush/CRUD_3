@@ -22,6 +22,14 @@
         <input type="text" name="name" value="<%= request.getAttribute("name") %>"><br/>
     </label>
 
+    <label>Password:
+        <input type="text" name="password" value="<%= request.getAttribute("password") %>"><br/>
+    </label>
+
+    <label>Role:
+        <input type="text" name="role" value="<%= request.getAttribute("role") %>"><br/>
+    </label>
+
     <label>Job:
         <input type="text" name="job" value="<%= request.getAttribute("job") %>"><br/>
     </label>
@@ -33,6 +41,6 @@
     <button type="submit">Update</button>
 
 </form>
-<button onclick="location.href='/home'">Home</button>
+<button onclick="location.href='/admin/users'">Back</button>
 </body>
 </html>

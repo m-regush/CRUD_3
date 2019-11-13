@@ -17,7 +17,7 @@
 <center>
     <h1>User Service</h1>
     <h2>
-        <a href="/add">Add New User</a>
+        <a href="/admin/add">Add New User</a>
 
 
     </h2>
@@ -28,6 +28,8 @@
         <tr>
             <th>ID</th>
             <th>Name</th>
+            <th>Password</th>
+            <th>Role</th>
             <th>Job</th>
             <th>Salary</th>
             <th>Actions</th>
@@ -36,6 +38,8 @@
             <tr>
                 <td><c:out value="${user.id}"/></td>
                 <td><c:out value="${user.name}"/></td>
+                <td><c:out value="${user.password}"/></td>
+                <td><c:out value="${user.role}"/></td>
                 <td><c:out value="${user.job}"/></td>
                 <td><c:out value="${user.salary}"/></td>
                 <td>
@@ -46,7 +50,7 @@
             </tr>
         </c:forEach>
     </table>
-    <button onclick="location.href='/home'">Home</button>
+    <button onclick="location.href='/homepage'">Logout</button>
 </div>
 </body>
 </html>

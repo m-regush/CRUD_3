@@ -9,10 +9,10 @@ import java.util.List;
 
 public class UserJdbcDAO implements UserDAO {
 
-    private Connection connection = DBHelper.getInstance().getConnection();
+    private Connection connection;
 
     public UserJdbcDAO() {
-
+        connection = DBHelper.getInstance().getConnection();
     }
 
     public List<User> getAllUser() throws SQLException {
@@ -22,6 +22,7 @@ public class UserJdbcDAO implements UserDAO {
             ResultSet result = stmt.getResultSet();
             while (result.next()) {
                 allUsers.add(new User(result.getLong("id"), result.getString("name"),
+                        result.getString("password"), result.getString("role"),
                         result.getString("job"), result.getLong("salary")));
             }
         }
@@ -30,8 +31,9 @@ public class UserJdbcDAO implements UserDAO {
 
     public void addUser(User user) throws SQLException {
         try (Statement stmt = connection.createStatement()) {
-            stmt.executeUpdate("INSERT INTO users (name, job, salary) " +
-                    "VALUES ('" + user.getName() + "', '" + user.getJob() + "'," + user.getSalary() + ")");
+            stmt.executeUpdate("INSERT INTO users (name, password, role, job, salary) " +
+                    "VALUES ('" + user.getName() + "', '" + user.getPassword() + "', '"+ user.getRole()+ "', '"
+                    + user.getJob() + "'," + user.getSalary() + ")");
 
         }
     }
@@ -51,12 +53,14 @@ public class UserJdbcDAO implements UserDAO {
 
 
     public void updateUser(User user) {
-        String query = "update users set name= ?, job = ?, salary = ? where id = ?";
+        String query = "update users set name = ?, password = ?, role = ?, job = ?, salary = ? where id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setString(1, user.getName());
-            stmt.setString(2, user.getJob());
-            stmt.setLong(3, user.getSalary());
-            stmt.setLong(4, user.getId());
+            stmt.setString(2, user.getPassword());
+            stmt.setString(3, user.getRole());
+            stmt.setString(4, user.getJob());
+            stmt.setLong(5, user.getSalary());
+            stmt.setLong(6, user.getId());
             stmt.execute();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -67,8 +71,9 @@ public class UserJdbcDAO implements UserDAO {
         try (Statement stmt = connection.createStatement()) {
             ResultSet result = stmt.executeQuery("SELECT * FROM users WHERE name= '" + name + "'");
             if (result.next()) {
-                return new User(result.getLong("id"), name,
-                        result.getString("job"), result.getLong("salary"));
+                return new User(result.getLong("id"), name, result.getString("password"),
+                        result.getString("role"), result.getString("job"),
+                        result.getLong("salary"));
             }
         }
         return null;
@@ -78,16 +83,12 @@ public class UserJdbcDAO implements UserDAO {
         try (Statement stmt = connection.createStatement()) {
             ResultSet result = stmt.executeQuery("select * from users where id= " + id);
             if (result.next()) {
-                return new User(id, result.getString("name"),
-                        result.getString("job"), result.getLong("salary"));
+                return new User(id, result.getString("name"), result.getString("password"),
+                        result.getString("role"), result.getString("job"),
+                        result.getLong("salary"));
             }
         }
         return null;
     }
 
-    public void createTable() throws SQLException {
-        Statement stmt = connection.createStatement();
-        stmt.execute("create table if not exists users (id bigint auto_increment, name varchar(256), job varchar(256), salary bigint, primary key (id))");
-        stmt.close();
-    }
 }

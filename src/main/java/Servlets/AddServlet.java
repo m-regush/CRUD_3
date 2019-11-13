@@ -21,7 +21,7 @@ import java.sql.SQLException;
 public class AddServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/JspView/add.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/View/add.jsp");
         dispatcher.forward(request, response);
     }
 

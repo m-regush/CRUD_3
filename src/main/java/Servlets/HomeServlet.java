@@ -19,7 +19,7 @@ import java.io.IOException;
 public class HomeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/JspView/user.jsp");
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF/View/user.jsp");
         requestDispatcher.forward(request, response);
     }
 }

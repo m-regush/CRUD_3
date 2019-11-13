@@ -34,7 +34,7 @@ public class UpdateServlet extends HttpServlet {
         request.setAttribute("role", user.getRole());
         request.setAttribute("job", user.getJob());
         request.setAttribute("salary", user.getSalary());
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/JspView/update.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/View/update.jsp");
         dispatcher.forward(request, response);
     }
 

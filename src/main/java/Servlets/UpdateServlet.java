@@ -15,7 +15,7 @@ import java.sql.SQLException;
 @WebServlet(
         name = "UpdateServlet",
         description = "Update user servlet",
-        urlPatterns = {"/update"}
+        urlPatterns = {"/admin/update"}
 )
 
 public class UpdateServlet extends HttpServlet {
@@ -30,9 +30,11 @@ public class UpdateServlet extends HttpServlet {
         }
         request.setAttribute("id", user.getId());
         request.setAttribute("name", user.getName());
+        request.setAttribute("password", user.getPassword());
+        request.setAttribute("role", user.getRole());
         request.setAttribute("job", user.getJob());
         request.setAttribute("salary", user.getSalary());
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/View/update.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/JspView/update.jsp");
         dispatcher.forward(request, response);
     }
 
@@ -40,9 +42,11 @@ public class UpdateServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Long id = Long.parseLong(request.getParameter("id"));
         String name = request.getParameter("name");
+        String password = request.getParameter("password");
+        String role = request.getParameter("role");
         String job = request.getParameter("job");
         Long salary = Long.parseLong(request.getParameter("salary"));
-        User user = new User(id, name, job, salary);
+        User user = new User(id, name, password, role, job, salary);
         try {
             UserService.getUserService().updateUser(user);
             response.sendRedirect("users");

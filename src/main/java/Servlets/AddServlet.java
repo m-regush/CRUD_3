@@ -15,22 +15,24 @@ import java.sql.SQLException;
 @WebServlet(
         name = "AddServlet",
         description = "Add user servlet",
-        urlPatterns = {"/add"}
+        urlPatterns = {"/admin/add"}
 )
 
 public class AddServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/View/add.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/JspView/add.jsp");
         dispatcher.forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) {
         String name = request.getParameter("name");
+        String password = request.getParameter("password");
+        String role = request.getParameter("role");
         String job = request.getParameter("job");
         Long salary = Long.parseLong(request.getParameter("salary"));
-        User user = new User(name, job, salary);
+        User user = new User(name, password, role, job, salary);
         try {
             if (UserService.getUserService().getClientByName(name) != null) {
                 response.setStatus(HttpServletResponse.SC_BAD_REQUEST);

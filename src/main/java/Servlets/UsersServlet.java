@@ -16,7 +16,7 @@ import java.util.List;
 @WebServlet(
         name = "UsersServlet",
         description = "Get all users servlet",
-        urlPatterns = {"/users"}
+        urlPatterns = {"/admin/users"}
 )
 
 public class UsersServlet extends HttpServlet {
@@ -24,7 +24,7 @@ public class UsersServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<User> listUser = UserService.getUserService().getAllUser();
         request.setAttribute("listUser", listUser);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/View/allUsers.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/JspView/allUsers.jsp");
         dispatcher.forward(request, response);
     }
 }
